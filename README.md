@@ -81,6 +81,8 @@ Como *cliente* quiero agendar una cita mediante la página, conociendo los horar
 
 Como *cliente* quiero realizar compras compras mediante la página web y que se entreguen en la ubicacion que decida o directamente en la tienda de forma que pueda recibir mis productos o recogerlos yo mismo. 
 
+---
+
 ### 004 - Registro de empleados 
 
 **Fecha**: 12/09/2022   
