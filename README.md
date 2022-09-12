@@ -127,7 +127,7 @@ Como *Administrador* quiero agregar, editar o eliminar los productos que se mues
 
  #### Dependencia
 
- Depende de Registro de Cliente, Registro de Usuario
+ Depende de Registro de Cliente #1 , Registro de Usuario #4
 
 ---
 
