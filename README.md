@@ -50,7 +50,7 @@ framework de Java, Spring Boot
 
 ---
 
-#### 001 - Registro de cliente  
+#### [001 - Registro de cliente](https://github.com/ArielMonroy99/ms-arqui/issues/1)  
 
 **Fecha**: 12/09/2022   
 **Prioridad**: ALTA
@@ -61,7 +61,7 @@ Como *cliente* quiero poder registrarme en el sistema mediante un formulario en 
 
 ---
 
-#### 002 -  Registro de Citas 
+#### [002 -  Registro de Citas](https://github.com/ArielMonroy99/ms-arqui/issues/2) 
 
 **Fecha**: 12/09/2022   
 **Prioridad**: ALTA
@@ -72,7 +72,7 @@ Como *cliente* quiero agendar una cita mediante la página, conociendo los horar
 
 ---
 
-### 003 - Venta de productos 
+### [003 - Venta de productos](https://github.com/ArielMonroy99/ms-arqui/issues/3) 
 
 **Fecha**: 12/09/2022   
 **Prioridad**: ALTA
@@ -83,7 +83,7 @@ Como *cliente* quiero realizar compras compras mediante la página web y que se 
 
 ---
 
-### 004 - Registro de empleados 
+### [004 - Registro de empleados](https://github.com/ArielMonroy99/ms-arqui/issues/4) 
 
 **Fecha**: 12/09/2022   
 **Prioridad**: ALTA
@@ -94,7 +94,7 @@ Como *Administrador* quiero poder agregar empleados con sus datos como nombre, c
 
 ---
 
-### 005 - Registro de Veterinario 
+### [005 - Registro de Veterinario](https://github.com/ArielMonroy99/ms-arqui/issues/5) 
 
 **Fecha**: 12/09/2022   
 **Prioridad**: ALTA
@@ -105,7 +105,7 @@ Como *Administrador* quiero añadir nuevos Veterinarios con sus respectivos hora
 
 ---
 
-### 006 - Administracion de Inventario 
+### [006 - Administracion de Inventario](https://github.com/ArielMonroy99/ms-arqui/issues/6) 
 
 **Fecha**: 12/09/2022   
 **Prioridad**: ALTA
@@ -116,7 +116,7 @@ Como *Administrador* quiero agregar, editar o eliminar los productos que se mues
 
 ---
 
-### 007 - Inicio de Sesion 
+### [007 - Inicio de Sesion](https://github.com/ArielMonroy99/ms-arqui/issues/7) 
 
 **Fecha**: 12/09/2022  
 **Prioridad**: ALTA 
@@ -131,7 +131,7 @@ Como *Administrador* quiero agregar, editar o eliminar los productos que se mues
 
 ---
 
- ### 008 - Reportes de Ventas 
+ ### [008 - Reportes de Ventas](https://github.com/ArielMonroy99/ms-arqui/issues/8) 
 
 **Fecha**: 12/09/2022  
 **Prioridad**: Media 
@@ -146,7 +146,7 @@ Esta historia depende de Venta de productos, Administracion de Inventario
 
 ---
 
-### 009 - Reportes sobre Veterinarios
+### [009 - Reportes sobre Veterinarios](https://github.com/ArielMonroy99/ms-arqui/issues/9)
 
 **Fecha**: 12/09/2022  
 **Prioridad**: Media
@@ -163,7 +163,7 @@ Registro de citas.
  
 ---
 
-### 010 - Cancelacion de Cita 
+### [010 - Cancelacion de Cita](https://github.com/ArielMonroy99/ms-arqui/issues/10)
 
 **Fecha**: 12/09/2022  
 **Prioridad**: Media
