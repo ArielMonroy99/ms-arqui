@@ -190,7 +190,7 @@ Como *Usuario* quiero adicionar y editar mis direcciones de entrega de forma que
 Depende de Registro de Usuario #1
 
 ---
-###[012 - Gestion de Pedidos](https://github.com/ArielMonroy99/proyectoArqui/issues/12)
+### [012 - Gestion de Pedidos](https://github.com/ArielMonroy99/proyectoArqui/issues/12)
 
 **Fecha**: 20/09/2022  
 **Prioridad**: Alta
