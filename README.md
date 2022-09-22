@@ -178,7 +178,7 @@ Depende de Registro de Citas
 
 ### [011 - Gestion de Direcciones](https://github.com/ArielMonroy99/proyectoArqui/issues/11)
 
-**Fecha**: 15/09/2022
+**Fecha**: 15/09/2022  
 **Prioridad**:Media 
 
 #### Narrativa 
