@@ -175,3 +175,30 @@ Como *Usuario* quiero cancelar una cita dando un justificativo de forma que no p
 #### Dependencia 
 
 Depende de Registro de Citas
+
+### [011 - Gestion de Direcciones](https://github.com/ArielMonroy99/proyectoArqui/issues/11)
+
+**Fecha**: 15/09/2022
+**Prioridad**:Media 
+
+#### Narrativa 
+
+Como *Usuario* quiero adicionar y editar mis direcciones de entrega de forma que pueda recibir los productos que  compre en la tienda
+
+#### Dependencia 
+
+Depende de Registro de Usuario #1
+
+---
+###[012 - Gestion de Pedidos](https://github.com/ArielMonroy99/proyectoArqui/issues/12)
+
+**Fecha**: 20/09/2022  
+**Prioridad**: Alta
+
+#### Narrativa 
+
+Como *Administrador* aceptar o rechazar los pedidos que se realizan a la tienda de forma que tenga manera de controlar los pedidos  que me llegan
+
+#### Dependencia 
+
+Depende de Gestion de Inventario #6 , Registro de Empleados #4 
