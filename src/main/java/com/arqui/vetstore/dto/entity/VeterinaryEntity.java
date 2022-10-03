@@ -3,7 +3,10 @@ package com.arqui.vetstore.dto.entity;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "veterinary")
@@ -27,9 +30,9 @@ public class VeterinaryEntity {
     @NotNull
     private Timestamp createdAt;
     private Timestamp updatedAt;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "veterinary_id")
-    private List<ScheduleEntity> schedule;
+    private Collection<ScheduleEntity> schedule = new ArrayList<>();
 
     public VeterinaryEntity() {
     }
@@ -115,11 +118,11 @@ public class VeterinaryEntity {
         this.updatedAt = updatedAt;
     }
 
-    public List<ScheduleEntity> getSchedule() {
+    public Collection<ScheduleEntity> getSchedule() {
         return schedule;
     }
 
-    public void setSchedule(List<ScheduleEntity> schedule) {
+    public void setSchedule(Collection<ScheduleEntity> schedule) {
         this.schedule = schedule;
     }
 

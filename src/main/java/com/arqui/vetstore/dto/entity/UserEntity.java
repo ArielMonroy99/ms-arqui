@@ -15,7 +15,9 @@ public class UserEntity {
     @NotNull
     private String name;
     @NotNull
-    private String lastName;
+    private String lastname;
+    @NotNull
+    private String phone;
     @NotNull
     private String email;
     @NotNull
@@ -28,7 +30,7 @@ public class UserEntity {
     private Timestamp createdAt;
     private Timestamp updatedAt;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(
             name="users_roles",
             joinColumns={@JoinColumn(name="users_id")},
@@ -36,6 +38,10 @@ public class UserEntity {
     )
     private List<RoleEntity> roles;
     public UserEntity() {
+    }
+
+    public UserEntity(Integer id) {
+        this.id = id;
     }
 
     public Integer getId() {
@@ -54,12 +60,20 @@ public class UserEntity {
         this.name = name;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getLastname() {
+        return lastname;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setLastname(String lastName) {
+        this.lastname = lastName;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public String getEmail() {
@@ -123,13 +137,15 @@ public class UserEntity {
         return "UserEntity{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", lastName='" + lastName + '\'' +
+                ", lastname='" + lastname + '\'' +
+                ", phone='" + phone + '\'' +
                 ", email='" + email + '\'' +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", status=" + status +
                 ", createdAt=" + createdAt +
                 ", updatedAt=" + updatedAt +
+                ", roles=" + roles +
                 '}';
     }
 }

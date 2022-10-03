@@ -1,7 +1,10 @@
 package com.arqui.vetstore.dto.mapper;
 
 import com.arqui.vetstore.dto.VeterinaryDto;
+import com.arqui.vetstore.dto.entity.ScheduleEntity;
 import com.arqui.vetstore.dto.entity.VeterinaryEntity;
+
+import java.util.List;
 
 public class VeterinaryMapper {
     public static VeterinaryDto veterinaryToDto(VeterinaryEntity veterinaryEntity){
@@ -12,7 +15,7 @@ public class VeterinaryMapper {
                 veterinaryEntity.getAddress(),
                 veterinaryEntity.getPhone(),
                 veterinaryEntity.getIdNumber(),
-                veterinaryEntity.getSchedule()
+                (List<ScheduleEntity>) veterinaryEntity.getSchedule()
         );
     }
     public static VeterinaryEntity veterinaryToEntity(VeterinaryDto veterinaryDto){

@@ -15,13 +15,14 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 
 import javax.servlet.http.HttpServletResponse;
 
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-public class SecurityAdapter extends WebSecurityConfigurerAdapter {
+public class SecurityAdapter extends WebSecurityConfigurerAdapter  {
     @Autowired
     private UserDetailsService userDetailsService;
     @Bean
@@ -41,6 +42,7 @@ public class SecurityAdapter extends WebSecurityConfigurerAdapter {
     protected void configure (AuthenticationManagerBuilder auth) throws Exception{
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
     }
+
     @Override
     protected void configure(HttpSecurity http) throws Exception{
         http
@@ -48,10 +50,12 @@ public class SecurityAdapter extends WebSecurityConfigurerAdapter {
                 .and()
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/auth/**").permitAll()
-                .antMatchers("/protected/**").authenticated()
-                .antMatchers("/veterinary/**").authenticated()
-                .antMatchers("/schedule/**").permitAll()
+                .antMatchers("/api/auth/**").permitAll()
+                .antMatchers("/api/protected/**").authenticated()
+                .antMatchers("/api/veterinary/**").authenticated()
+                .antMatchers("/api/schedule/**").permitAll()
+                .antMatchers("/api/item/**").permitAll()
+                .antMatchers("/api/user").permitAll()
                 .and()
                 .exceptionHandling()
                 .authenticationEntryPoint((req,res,ex) ->

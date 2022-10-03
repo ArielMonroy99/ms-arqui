@@ -1,5 +1,6 @@
 package com.arqui.vetstore.dto.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
@@ -19,8 +20,10 @@ public class ScheduleEntity  {
     private Time hour;
     @NotNull
     private Integer avaliable;
-    @NotNull
-    private Integer veterinary_id;
+    @ManyToOne
+    @JoinColumn(name = "veterinary_id")
+    @JsonIgnore
+    private VeterinaryEntity veterinary;
 
     public Integer getId() {
         return id;
@@ -54,12 +57,12 @@ public class ScheduleEntity  {
         this.avaliable = avaliable;
     }
 
-    public Integer getVeterinary_id() {
-        return veterinary_id;
+    public VeterinaryEntity getVeterinary() {
+        return veterinary;
     }
 
-    public void setVeterinary_id(Integer veterinary_id) {
-        this.veterinary_id = veterinary_id;
+    public void setVeterinary(VeterinaryEntity veterinary) {
+        this.veterinary = veterinary;
     }
 
     @Override
@@ -69,7 +72,7 @@ public class ScheduleEntity  {
                 ", day=" + day +
                 ", hour=" + hour +
                 ", avaliable=" + avaliable +
-                ", veterinary_id=" + veterinary_id +
+                ", veterinary_id=" + veterinary.getId() +
                 '}';
     }
 }

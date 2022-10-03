@@ -3,6 +3,7 @@ package com.arqui.vetstore.bl;
 import com.arqui.vetstore.dao.ScheduleRepostory;
 import com.arqui.vetstore.dao.VeterinaryRepository;
 import com.arqui.vetstore.dto.VeterinaryDto;
+import com.arqui.vetstore.dto.entity.ScheduleEntity;
 import com.arqui.vetstore.dto.entity.VeterinaryEntity;
 import com.arqui.vetstore.dto.mapper.VeterinaryMapper;
 import com.arqui.vetstore.configure.error.VeterinaryNotFoundException;
@@ -15,6 +16,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
+import java.util.stream.Collectors;
+
 @Service
 public class VeterinaryBl {
     private VeterinaryRepository veterinaryRepository;
@@ -30,11 +33,25 @@ public class VeterinaryBl {
     public VeterinaryDto saveVeterinary(VeterinaryDto newVeterinary){
         logger.info("Saving new veterinary {}", newVeterinary);
 
-        VeterinaryEntity veterinaryEntity = VeterinaryMapper.veterinaryToEntity(newVeterinary);
+        VeterinaryEntity veterinaryEntity = new VeterinaryEntity();
+        veterinaryEntity.setAddress(newVeterinary.getAddress());
+        veterinaryEntity.setName(newVeterinary.getName());
+        veterinaryEntity.setPhone(newVeterinary.getPhone());
+        veterinaryEntity.setLastname(newVeterinary.getLastname());
+        veterinaryEntity.setIdNumber(newVeterinary.getIdNumber());
         veterinaryEntity.setStatus(1);
         veterinaryEntity.setCreatedAt(new Timestamp(System.currentTimeMillis()));
-        veterinaryEntity = veterinaryRepository.save(VeterinaryMapper.veterinaryToEntity(newVeterinary));
-        return VeterinaryMapper.veterinaryToDto(veterinaryEntity);
+        veterinaryEntity.setSchedule(newVeterinary.getSchedules().stream().map(
+                schedule -> {
+            ScheduleEntity scheduleEntity = new ScheduleEntity();
+            scheduleEntity.setDay(schedule.getDay());
+            scheduleEntity.setHour(schedule.getHour());
+            scheduleEntity.setAvaliable(schedule.getAvaliable());
+            scheduleEntity.setVeterinary(veterinaryEntity);
+            return scheduleEntity;
+        }).collect(Collectors.toList()));
+        VeterinaryEntity vet = veterinaryRepository.save(veterinaryEntity);
+        return VeterinaryMapper.veterinaryToDto(vet);
     }
 
     public VeterinaryDto getVeterinaryById(Integer id){
