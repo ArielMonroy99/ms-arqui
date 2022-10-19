@@ -50,4 +50,9 @@ public class UserApi {
     public Page<OrderDto> getUserOrders(@PathVariable Integer id, @RequestParam Integer page, @RequestParam Integer size){
         return orderBl.getOrdersByUser(page, size, id);
     }
+
+    @GetMapping(path = "/username")
+    public UserDto getUserDto(@RequestParam String username){
+        return userBl.getUserByUsername(username);
+    }
 }

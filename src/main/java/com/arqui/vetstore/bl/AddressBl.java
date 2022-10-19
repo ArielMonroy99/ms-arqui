@@ -23,6 +23,7 @@ public class AddressBl {
     }
 
     public AddressDto saveAddress(AddressDto address){
+        logger.info("Saving address {}", address);
         AddressEntity addressEntity = new AddressEntity();
         addressEntity.setAddress(address.getAddress());
         addressEntity.setLatitude(address.getLatitude());
@@ -39,6 +40,7 @@ public class AddressBl {
     }
 
     public AddressDto updateAddress(AddressDto address){
+        logger.info("Updating address {}", address);
         AddressEntity addressEntity = addressRepository.findById(address.getId()).orElseThrow(
                 () -> new RuntimeException("Address not found")
         );
@@ -65,6 +67,9 @@ public class AddressBl {
             addressDto.setAddress(addressEntity.getAddress());
             addressDto.setLatitude(addressEntity.getLatitude());
             addressDto.setLongitude(addressEntity.getLongitude());
+            addressDto.setName(addressEntity.getName());
+            addressDto.setUser(addressEntity.getUser().toDto());
+
             return addressDto;
         });
     }

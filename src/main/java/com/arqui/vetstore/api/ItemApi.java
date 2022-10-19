@@ -19,8 +19,11 @@ public class ItemApi {
     }
 
     @GetMapping
-    public Page<ItemDto> getItems(@RequestParam Integer size , @RequestParam Integer page){
-        return itemBl.getItems(size, page);
+    public Page<ItemDto> getItems(@RequestParam Integer size,
+                                  @RequestParam Integer page,
+                                  @RequestParam(required = false) String sort,
+                                  @RequestParam(required = false) String sortDir){
+        return itemBl.getItems(size, page, sort, sortDir);
     }
     @PostMapping
     public ItemDto saveItem(@RequestBody ItemDto item){

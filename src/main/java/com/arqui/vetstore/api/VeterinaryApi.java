@@ -4,6 +4,7 @@ import com.arqui.vetstore.bl.VeterinaryBl;
 import com.arqui.vetstore.dto.VeterinaryDto;
 import com.arqui.vetstore.dto.entity.VeterinaryEntity;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +14,7 @@ import javax.persistence.GeneratedValue;
 
 @RestController
 @RequestMapping("/api/veterinary")
-@Validated
+@CrossOrigin(origins = "*")
 public class VeterinaryApi {
 
 
@@ -31,5 +32,8 @@ public class VeterinaryApi {
     public VeterinaryDto getVeterinaryById(@PathVariable Integer id){
         return veterinaryBl.getVeterinaryById(id);
     }
-
+    @GetMapping
+    public Page<VeterinaryDto> getVeterinaries(@RequestParam Integer page, @RequestParam Integer size){
+        return veterinaryBl.getAllVeterinaries(page, size);
+    }
 }

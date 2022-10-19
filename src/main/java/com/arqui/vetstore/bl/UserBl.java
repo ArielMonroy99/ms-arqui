@@ -104,4 +104,23 @@ public class UserBl {
         userEntity.setStatus(0);
         userRepository.save(userEntity);
     }
+
+    public UserDto getUserByUsername(String username){
+        UserEntity userEntity = userRepository.findByUsername(username).orElseThrow(()->{
+            throw new RuntimeException("user not found");
+        });
+        UserDto userDto = new UserDto();
+        userDto.setId(userEntity.getId());
+        userDto.setName(userEntity.getName());
+        userDto.setLastname(userEntity.getLastname());
+        userDto.setEmail(userEntity.getEmail());
+        userDto.setPhone(userEntity.getPhone());
+        userDto.setUsername(userEntity.getUsername());
+        userDto.setPassword(userEntity.getPassword());
+        userDto.setRole(userEntity.getRoles().stream().map(
+                RoleEntity::getRole
+        ).collect(Collectors.toList()));
+        return userDto;
+
+    }
 }

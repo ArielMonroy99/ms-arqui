@@ -82,4 +82,5 @@ public class VeterinaryBl {
         return VeterinaryMapper.veterinaryToDto(veterinaryEntity);
     }
 
+
 }

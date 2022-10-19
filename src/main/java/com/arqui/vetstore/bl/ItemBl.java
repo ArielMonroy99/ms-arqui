@@ -8,6 +8,7 @@ import com.arqui.vetstore.dto.entity.ItemEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -52,8 +53,11 @@ public class ItemBl {
         return item;
     }
 
-    public Page<ItemDto> getItems(Integer size , Integer page){
-        Page<ItemEntity> items = itemRepository.findAllByStatus(1,PageRequest.of(page, size));
+    public Page<ItemDto> getItems(Integer size , Integer page, String sort, String sortDir){
+        if(sortDir == null) sortDir = "asc";
+        if(sort == null) sort = "id";
+        PageRequest pageRequest = PageRequest.of(page, size, Sort.Direction.fromString(sortDir), sort);
+        Page<ItemEntity> items = itemRepository.findAllByStatus(1,PageRequest.of(page, size, Sort.Direction.fromString(sortDir), sort));
         Page<ItemDto> itemDtos = items.map(itemEntity -> {
             ItemDto itemDto = new ItemDto();
             itemDto.setId(itemEntity.getId());

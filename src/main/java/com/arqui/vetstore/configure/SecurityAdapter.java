@@ -52,7 +52,7 @@ public class SecurityAdapter extends WebSecurityConfigurerAdapter  {
                 .authorizeRequests()
                 .antMatchers("/api/auth/**").permitAll()
                 .antMatchers("/api/protected/**").authenticated()
-                .antMatchers("/api/veterinary/**").authenticated()
+                .antMatchers("/api/veterinary/**").permitAll()
                 .antMatchers("/api/schedule/**").permitAll()
                 .antMatchers("/api/item/**").permitAll()
                 .antMatchers("/api/user").permitAll()

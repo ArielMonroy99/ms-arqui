@@ -1,5 +1,7 @@
 package com.arqui.vetstore.dto.entity;
 
+import com.arqui.vetstore.dto.UserDto;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
@@ -147,5 +149,16 @@ public class UserEntity {
                 ", updatedAt=" + updatedAt +
                 ", roles=" + roles +
                 '}';
+    }
+
+    public UserDto toDto() {
+        UserDto user = new UserDto();
+        user.setId(this.id);
+        user.setName(this.name);
+        user.setLastname(this.lastname);
+        user.setPhone(this.phone);
+        user.setEmail(this.email);
+        user.setUsername(this.username);
+        return user;
     }
 }

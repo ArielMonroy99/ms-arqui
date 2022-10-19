@@ -29,8 +29,8 @@ public class AddressApi {
     public AddressDto updateAddress(@RequestBody AddressDto address){
         return addressBl.updateAddress(address);
     }
-    @DeleteMapping
-    public void deleteAddress(@RequestParam Integer id){
+    @DeleteMapping(path = "/{id}")
+    public void deleteAddress(@PathVariable Integer id){
         addressBl.deleteAddress(id);
     }
 }
