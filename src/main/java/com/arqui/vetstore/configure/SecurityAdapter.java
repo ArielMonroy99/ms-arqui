@@ -15,9 +15,13 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 @Configuration
 @EnableWebSecurity
@@ -47,15 +51,19 @@ public class SecurityAdapter extends WebSecurityConfigurerAdapter  {
     protected void configure(HttpSecurity http) throws Exception{
         http
                 .headers().frameOptions().sameOrigin()
-                .and()
+                .and().cors().and()
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/api/auth/**").permitAll()
                 .antMatchers("/api/protected/**").authenticated()
-                .antMatchers("/api/veterinary/**").permitAll()
-                .antMatchers("/api/schedule/**").permitAll()
+                .antMatchers("/api/veterinary/**").authenticated()
+                .antMatchers("/api/schedule/**").authenticated()
                 .antMatchers("/api/item/**").permitAll()
-                .antMatchers("/api/user").permitAll()
+                .antMatchers("/api/user/**").permitAll()
+                .antMatchers("/api/report/**").authenticated()
+                .antMatchers("/api/appointment/**").authenticated()
+                .antMatchers("/api/order/**").authenticated()
+                .antMatchers("/api/address/**").authenticated()
                 .and()
                 .exceptionHandling()
                 .authenticationEntryPoint((req,res,ex) ->
@@ -64,5 +72,14 @@ public class SecurityAdapter extends WebSecurityConfigurerAdapter  {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
+    }
+
+    @Bean
+        CorsConfigurationSource corsConfigurationSource() {
+        final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        CorsConfiguration configuration = new CorsConfiguration().applyPermitDefaultValues();
+        configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
     }
 }

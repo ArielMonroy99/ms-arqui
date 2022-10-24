@@ -33,25 +33,13 @@ public class VeterinaryBl {
     public VeterinaryDto saveVeterinary(VeterinaryDto newVeterinary){
         logger.info("Saving new veterinary {}", newVeterinary);
 
-        VeterinaryEntity veterinaryEntity = new VeterinaryEntity();
-        veterinaryEntity.setAddress(newVeterinary.getAddress());
-        veterinaryEntity.setName(newVeterinary.getName());
-        veterinaryEntity.setPhone(newVeterinary.getPhone());
-        veterinaryEntity.setLastname(newVeterinary.getLastname());
-        veterinaryEntity.setIdNumber(newVeterinary.getIdNumber());
+        VeterinaryEntity veterinaryEntity = VeterinaryMapper.veterinaryToEntity(newVeterinary);
         veterinaryEntity.setStatus(1);
         veterinaryEntity.setCreatedAt(new Timestamp(System.currentTimeMillis()));
-        veterinaryEntity.setSchedule(newVeterinary.getSchedules().stream().map(
-                schedule -> {
-            ScheduleEntity scheduleEntity = new ScheduleEntity();
-            scheduleEntity.setDay(schedule.getDay());
-            scheduleEntity.setHour(schedule.getHour());
-            scheduleEntity.setAvaliable(schedule.getAvaliable());
-            scheduleEntity.setVeterinary(veterinaryEntity);
-            return scheduleEntity;
-        }).collect(Collectors.toList()));
+        veterinaryEntity.setSchedule(newVeterinary.getSchedules());
         VeterinaryEntity vet = veterinaryRepository.save(veterinaryEntity);
-        return VeterinaryMapper.veterinaryToDto(vet);
+        newVeterinary.setId(vet.getId());
+        return newVeterinary;
     }
 
     public VeterinaryDto getVeterinaryById(Integer id){

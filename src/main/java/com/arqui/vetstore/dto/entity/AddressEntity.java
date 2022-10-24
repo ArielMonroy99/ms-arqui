@@ -1,5 +1,7 @@
 package com.arqui.vetstore.dto.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
@@ -19,6 +21,7 @@ public class AddressEntity {
     private Integer status;
     private Timestamp createdAt;
     private Timestamp updatedAt;
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "user_id")
     private UserEntity user;

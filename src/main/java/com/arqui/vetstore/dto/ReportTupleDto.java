@@ -2,14 +2,16 @@ package com.arqui.vetstore.dto;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.io.Serializable;
 
 @Entity
-public class ReportTupleDto {
+public class
+ReportTupleDto implements Serializable {
     private String name;
     private Integer value;
-    @Id
     private Integer id;
-
+    @Id
+    private Integer number;
     public ReportTupleDto() {
     }
 
@@ -29,20 +31,28 @@ public class ReportTupleDto {
         this.value = value;
     }
 
-    @Override
-    public String toString() {
-        return "ReportTupleDto{" +
-                "name='" + name + '\'' +
-                ", value=" + value +
-                '}';
-    }
-
-
     public Integer getId() {
         return id;
     }
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Integer getNumber() {
+        return number;
+    }
+
+    public void setNumber(Integer number) {
+        this.number = number;
+    }
+
+    @Override
+    public String toString() {
+        return "ReportTupleDto{" +
+                "name='" + name + '\'' +
+                ", value=" + value +
+                ", id=" + id +
+                '}';
     }
 }

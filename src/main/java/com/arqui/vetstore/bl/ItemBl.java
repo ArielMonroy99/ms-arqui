@@ -5,6 +5,7 @@ import com.arqui.vetstore.dao.ItemRepository;
 import com.arqui.vetstore.dto.ItemDto;
 import com.arqui.vetstore.dto.entity.CategoryEntity;
 import com.arqui.vetstore.dto.entity.ItemEntity;
+import com.arqui.vetstore.dto.mapper.ItemMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -24,12 +25,7 @@ public class ItemBl {
     }
 
     public ItemDto saveItem(ItemDto item){
-        ItemEntity itemEntity = new ItemEntity();
-        itemEntity.setName(item.getName());
-        itemEntity.setPrice(item.getPrice());
-        itemEntity.setStock(item.getStock());
-        itemEntity.setDescription(item.getDescription());
-        itemEntity.setCategory(item.getCategory());
+        ItemEntity itemEntity = ItemMapper.itemDtoToEntity(item);
         itemEntity.setCreatedAt(new Timestamp(System.currentTimeMillis()));
         itemEntity.setStatus(1);
         itemEntity = itemRepository.save(itemEntity);
@@ -39,52 +35,31 @@ public class ItemBl {
     }
 
     public ItemDto updateItem(ItemDto item){
-        ItemEntity itemEntity = itemRepository.findById(item.getId()).get();
+        ItemEntity itemEntity = itemRepository.findById(item.getId()).orElseThrow(()-> new RuntimeException("Item not found"));
         itemEntity.setName(item.getName());
         itemEntity.setPrice(item.getPrice());
         itemEntity.setStock(item.getStock());
         itemEntity.setDescription(item.getDescription());
         itemEntity.setCategory(item.getCategory());
         itemEntity.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
-        itemEntity.setStatus(1);
         itemEntity = itemRepository.save(itemEntity);
-        item.setId(itemEntity.getId());
-
         return item;
     }
 
     public Page<ItemDto> getItems(Integer size , Integer page, String sort, String sortDir){
         if(sortDir == null) sortDir = "asc";
         if(sort == null) sort = "id";
-        PageRequest pageRequest = PageRequest.of(page, size, Sort.Direction.fromString(sortDir), sort);
         Page<ItemEntity> items = itemRepository.findAllByStatus(1,PageRequest.of(page, size, Sort.Direction.fromString(sortDir), sort));
-        Page<ItemDto> itemDtos = items.map(itemEntity -> {
-            ItemDto itemDto = new ItemDto();
-            itemDto.setId(itemEntity.getId());
-            itemDto.setName(itemEntity.getName());
-            itemDto.setDescription(itemEntity.getDescription());
-            itemDto.setPrice(itemEntity.getPrice());
-            itemDto.setStock(itemEntity.getStock());
-            itemDto.setCategory(itemEntity.getCategory());
-            return itemDto;
-        });
-        return itemDtos;
+        return items.map(ItemMapper::itemEntityToDto);
     }
 
     public ItemDto getItem(Integer id){
-        ItemEntity itemEntity = itemRepository.findById(id).get();
-        ItemDto itemDto = new ItemDto();
-        itemDto.setId(itemEntity.getId());
-        itemDto.setName(itemEntity.getName());
-        itemDto.setDescription(itemEntity.getDescription());
-        itemDto.setPrice(itemEntity.getPrice());
-        itemDto.setStock(itemEntity.getStock());
-        itemDto.setCategory(itemEntity.getCategory());
-        return itemDto;
+        ItemEntity itemEntity = itemRepository.findById(id).orElseThrow(()-> new RuntimeException("Item not found"));
+        return ItemMapper.itemEntityToDto(itemEntity);
     }
 
     public void deleteItem(Integer id){
-        ItemEntity itemEntity = itemRepository.findById(id).get();
+        ItemEntity itemEntity = itemRepository.findById(id).orElseThrow(() -> new RuntimeException("Item not found"));
         itemEntity.setStatus(0);
         itemRepository.save(itemEntity);
     }
@@ -94,16 +69,6 @@ public class ItemBl {
                 () -> new RuntimeException("Category not found")
         );
         Page<ItemEntity> items = itemRepository.findAllByStatusAndCategory(1, categoryEntity, PageRequest.of(page, size));
-        Page<ItemDto> itemDtos = items.map(itemEntity -> {
-            ItemDto itemDto = new ItemDto();
-            itemDto.setId(itemEntity.getId());
-            itemDto.setName(itemEntity.getName());
-            itemDto.setDescription(itemEntity.getDescription());
-            itemDto.setPrice(itemEntity.getPrice());
-            itemDto.setStock(itemEntity.getStock());
-            itemDto.setCategory(itemEntity.getCategory());
-            return itemDto;
-        });
-        return itemDtos;
+        return items.map(ItemMapper::itemEntityToDto);
     }
 }

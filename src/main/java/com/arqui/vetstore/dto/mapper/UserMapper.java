@@ -1,5 +1,6 @@
 package com.arqui.vetstore.dto.mapper;
 
+import com.arqui.vetstore.dto.UserDto;
 import com.arqui.vetstore.dto.UserPrincipal;
 import com.arqui.vetstore.dto.entity.UserEntity;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -18,5 +19,16 @@ public class UserMapper {
         userPrincipal.setAuthorities(authorities);
         userPrincipal.setEnabled(user.getStatus() == 1);
         return userPrincipal;
+    }
+
+    public static UserEntity userDtoToEntity(UserDto userDto){
+        UserEntity userEntity = new UserEntity();
+        userEntity.setName(userDto.getName());
+        userEntity.setPhone(userDto.getPhone());
+        userEntity.setLastname(userDto.getLastname());
+        userEntity.setUsername(userDto.getUsername());
+        userEntity.setPassword(userDto.getPassword());
+        userEntity.setEmail(userDto.getEmail());
+        return userEntity;
     }
 }

@@ -6,6 +6,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "users", schema = "public")
@@ -159,6 +160,7 @@ public class UserEntity {
         user.setPhone(this.phone);
         user.setEmail(this.email);
         user.setUsername(this.username);
+        user.setRole(this.roles.stream().map(RoleEntity::getRole).collect(Collectors.toList()));
         return user;
     }
 }

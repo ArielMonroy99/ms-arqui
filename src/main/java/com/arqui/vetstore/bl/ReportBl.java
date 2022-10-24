@@ -10,10 +10,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class ReportBl {
@@ -30,29 +32,56 @@ public class ReportBl {
         this.itemRepository = itemRepository;
     }
 
-    public Map<String,ReportDto> getReportProducts(){
-        List<ReportTupleDto> reportTupleDtos = reportRepository.getReportProducts();
-       logger.info("reportTupleDtos {}",reportTupleDtos);
-
-        Map<String, ReportDto> reportDtoMap = new HashMap<>();
-        for (ReportTupleDto reportTupleDto : reportTupleDtos) {
-            String name = itemRepository.findById(reportTupleDto.getId()).orElseThrow(
-                    () -> new RuntimeException("Item not found")).getName();
-            reportTupleDto.setName(months().get(Integer.parseInt(reportTupleDto.getName())));
-            if(reportDtoMap.containsKey(name)){
-                reportDtoMap.get(name).getSeries().add(reportTupleDto);
-            }else{
-                ReportDto reportDto = new ReportDto();
-                reportDto.setName(name);
-                List<ReportTupleDto> series = new ArrayList<>();
-                series.add(reportTupleDto);
-                reportDto.setSeries(series);
-                reportDtoMap.put(reportDto.getName(),reportDto);
-            }
-        }
+    public Map<Integer,ReportDto> getReportProductsLineChart(Integer year){
+        List<ReportTupleDto> reportTupleDtos = reportRepository.getReportProductsByYear(year);
         logger.info("reportTupleDtos {}",reportTupleDtos);
+        Map<Integer, ReportDto> reportDtoMap = new HashMap<>();
+        String month = "";
+        logger.info("reportTuple length {}", reportTupleDtos.size());
+        int counter = 0;
+        for(ReportTupleDto touple : reportTupleDtos){
+            logger.info("touple {}", touple);
+            counter++;
+            touple.setName(months().get(Integer.parseInt(touple.getName())));
+            if(!reportDtoMap.containsKey(touple.getId())){
+                ReportDto reportDto = new ReportDto();
+                reportDto.setName(itemRepository.findById(touple.getId()).orElseThrow().getName());
+                reportDtoMap.put(touple.getId(),reportDto);
+            }
+            ReportDto report = reportDtoMap.get(touple.getId());
+            if(report.getSeries()==null){
+                report.setSeries(new ArrayList<>());
+            }
+            report.getSeries().add(touple);
+        }
         return reportDtoMap;
     }
+    public Map<Integer,ReportDto> getReportVeterinaryLineChart(Integer year){
+        List<ReportTupleDto> reportTupleDtos = reportRepository.getReportVeterinariesByYear(year);
+        logger.info("reportTupleDtos {}",reportTupleDtos);
+        Map<Integer, ReportDto> reportDtoMap = new HashMap<>();
+        String month = "";
+        logger.info("reportTuple length {}", reportTupleDtos.size());
+        int counter = 0;
+        for(ReportTupleDto touple : reportTupleDtos){
+            logger.info("touple {}", touple);
+            counter++;
+            touple.setName(months().get(Integer.parseInt(touple.getName())));
+            if(!reportDtoMap.containsKey(touple.getId())){
+                ReportDto reportDto = new ReportDto();
+                
+                reportDto.setName(veterinaryRepository.findById(touple.getId()).orElseThrow().getName());
+                reportDtoMap.put(touple.getId(),reportDto);
+            }
+            ReportDto report = reportDtoMap.get(touple.getId());
+            if(report.getSeries()==null){
+                report.setSeries(new ArrayList<>());
+            }
+            report.getSeries().add(touple);
+        }
+        return reportDtoMap;
+    }
+
 
     public static Map<Integer,String> months(){
        Map<Integer,String> months = new HashMap<>();

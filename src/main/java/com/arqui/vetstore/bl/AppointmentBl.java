@@ -13,6 +13,9 @@ import com.arqui.vetstore.dto.entity.VeterinaryEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
@@ -46,6 +49,11 @@ public class AppointmentBl {
 
     public AppointmentDto saveAppointmet(AppointmentDto appointmentDto){
         AppointmentEntity appointmentEntity = new AppointmentEntity();
+        Date appDate = Date.valueOf(appointmentDto.getDate());
+        Date today = new Date(System.currentTimeMillis());
+        if(appDate.before(today)){
+            throw new ResponseStatusException(org.springframework.http.HttpStatus.BAD_REQUEST, "The date must be greater than today");
+        }
         appointmentEntity.setDate(Date.valueOf(appointmentDto.getDate()));
         appointmentEntity.setHour(Time.valueOf(appointmentDto.getTime()));
         appointmentEntity.setStatus(1);
@@ -62,7 +70,7 @@ public class AppointmentBl {
         VeterinaryEntity veterinary = veterinaryRepository.findById(veterinaryId).orElseThrow(() -> new RuntimeException("Veterinary not found"));
         List<ScheduleEntity> availableSchedules = new ArrayList<>(veterinary.getSchedule());
         List<AppointmentEntity> appointments = appointmentRepository
-                .getAppointmentEntitiesByVeterinaryAndDateGreaterThanEqualAndDateLessThanEqual(veterinary, startDate, endDate);
+                .getAppointmentEntitiesByVeterinaryAndDateGreaterThanEqualAndDateLessThanEqualAndStatus(veterinary, startDate, endDate,1);
         availableSchedules = availableSchedules.stream().map((schedule)->{
             for (AppointmentEntity appointment:appointments) {
                 calendar.setTime(appointment.getDate());
@@ -81,23 +89,24 @@ public class AppointmentBl {
         return availableSchedules;
 
     }
-    public List<AppointmentDto> getAppointmentsByUser(Integer userId){
-        List<AppointmentEntity> appointments = appointmentRepository.getAppointmentEntitiesByUserIdAndStatus(userId,1);
-        return appointments.stream().map((appointment)->{
+    public Page<AppointmentDto> getAppointmentsByUser(Integer userId, Integer page, Integer size){
+
+        Page<AppointmentEntity> appointments =
+                appointmentRepository.getAppointmentEntitiesByUserId(userId, PageRequest.of(page, size, Sort.by(List.of(Sort.Order.desc("date"), Sort.Order.asc("hour")))));
+        Page<AppointmentDto> appointmentDtos =  appointments.map((appointmentEntity -> {
             AppointmentDto appointmentDto = new AppointmentDto();
-            appointmentDto.setId(appointment.getId());
-            appointmentDto.setDate(appointment.getDate().toString());
-            appointmentDto.setTime(appointment.getHour().toString());
-            appointmentDto.setStatus(appointment.getStatus());
+            appointmentDto.setId(appointmentEntity.getId());
+            appointmentDto.setDate(appointmentEntity.getDate().toString());
+            appointmentDto.setTime(appointmentEntity.getHour().toString());
+            appointmentDto.setStatus(appointmentEntity.getStatus());
             VeterinaryDto veterinaryDto = new VeterinaryDto();
-            veterinaryDto.setId(appointment.getVeterinary().getId());
-            veterinaryDto.setName(appointment.getVeterinary().getName());
-            veterinaryDto.setLastname(appointment.getVeterinary().getLastname());
-            veterinaryDto.setPhone(appointment.getVeterinary().getPhone());
+            veterinaryDto.setId(appointmentEntity.getVeterinary().getId());
+            veterinaryDto.setName(appointmentEntity.getVeterinary().getName());
+            veterinaryDto.setLastname(appointmentEntity.getVeterinary().getLastname());
             appointmentDto.setVeterinary(veterinaryDto);
-            appointmentDto.setUser(appointment.getUser().toDto());
             return appointmentDto;
-        }).collect(Collectors.toList());
+        }));
+        return appointmentDtos;
     }
     @Transactional
     public String cancelAppointment(CancelationEntity cancelationEntity){

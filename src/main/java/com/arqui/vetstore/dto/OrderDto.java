@@ -12,8 +12,17 @@ public class OrderDto {
     private Timestamp date;
     private UserDto user;
     private AddressDto address;
-    private List<OrderItemEntity> items;
+    private Integer status;
+    private List<OrderItemDto> items;
     public OrderDto() {
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 
     public Integer getId() {
@@ -56,11 +65,11 @@ public class OrderDto {
         this.address = address;
     }
 
-    public List<OrderItemEntity> getItems() {
+    public List<OrderItemDto> getItems() {
         return items;
     }
 
-    public void setItems(List<OrderItemEntity> items) {
+    public void setItems(List<OrderItemDto> items) {
         this.items = items;
     }
 
@@ -72,6 +81,7 @@ public class OrderDto {
                 ", date=" + date +
                 ", user=" + user +
                 ", address=" + address +
+                ", status=" + status +
                 ", items=" + items +
                 '}';
     }
