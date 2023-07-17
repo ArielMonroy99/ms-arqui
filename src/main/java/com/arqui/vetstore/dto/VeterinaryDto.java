@@ -1,7 +1,5 @@
 package com.arqui.vetstore.dto;
 
-import com.arqui.vetstore.dto.entity.ScheduleEntity;
-
 import java.util.List;
 
 public class VeterinaryDto {
@@ -92,6 +90,7 @@ public class VeterinaryDto {
                 ", address='" + address + '\'' +
                 ", phone='" + phone + '\'' +
                 ", idNumber='" + idNumber + '\'' +
+                ", schedules=" + schedules +
                 '}';
     }
 }

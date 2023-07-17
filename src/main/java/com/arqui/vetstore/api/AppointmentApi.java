@@ -2,8 +2,8 @@ package com.arqui.vetstore.api;
 
 import com.arqui.vetstore.bl.AppointmentBl;
 import com.arqui.vetstore.dto.AppointmentDto;
-import com.arqui.vetstore.dto.entity.CancelationEntity;
-import com.arqui.vetstore.dto.entity.ScheduleEntity;
+import com.arqui.vetstore.dto.CancelationEntity;
+import com.arqui.vetstore.dto.ScheduleEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +11,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.criteria.CriteriaBuilder;
 import java.sql.Date;
 import java.util.List;
 

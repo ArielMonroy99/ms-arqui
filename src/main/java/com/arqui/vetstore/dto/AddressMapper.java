@@ -1,7 +1,4 @@
-package com.arqui.vetstore.dto.mapper;
-
-import com.arqui.vetstore.dto.AddressDto;
-import com.arqui.vetstore.dto.entity.AddressEntity;
+package com.arqui.vetstore.dto;
 
 public class AddressMapper {
     public static AddressDto toAddressDto(AddressEntity addressEntity) {

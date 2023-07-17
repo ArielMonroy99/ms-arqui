@@ -1,8 +1,8 @@
 package com.arqui.vetstore.configure.service;
 
 import com.arqui.vetstore.dao.UserRepository;
-import com.arqui.vetstore.dto.entity.UserEntity;
-import com.arqui.vetstore.dto.mapper.UserMapper;
+import com.arqui.vetstore.dto.UserEntity;
+import com.arqui.vetstore.dto.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

@@ -1,37 +1,33 @@
-package com.arqui.vetstore.dto.entity;
+package com.arqui.vetstore.dto;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import jdk.jfr.Unsigned;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
-@Table(name = "orders")
-public class OrderEntity {
+@Table(name = "address")
+public class AddressEntity {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private BigDecimal total;
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Timestamp date;
+    private String address;
+    private String name;
+    @Column(name = "latitude")
+    private BigDecimal latitude;
+    @Column(name = "longitude")
+    private BigDecimal longitude;
     private Integer status;
     private Timestamp createdAt;
     private Timestamp updatedAt;
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "user_id")
     private UserEntity user;
-    @OneToOne
-    @JoinColumn(name = "address_id")
-    private AddressEntity address;
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
-    private List<OrderItemEntity> items = new ArrayList<>();
-
-    public OrderEntity() {
+    public AddressEntity() {
     }
 
     public Integer getId() {
@@ -42,20 +38,28 @@ public class OrderEntity {
         this.id = id;
     }
 
-    public BigDecimal getTotal() {
-        return total;
+    public String getAddress() {
+        return address;
     }
 
-    public void setTotal(BigDecimal total) {
-        this.total = total;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
-    public Timestamp getDate() {
-        return date;
+    public BigDecimal getLatitude() {
+        return latitude;
     }
 
-    public void setDate(Timestamp date) {
-        this.date = date;
+    public void setLatitude(BigDecimal latitude) {
+        this.latitude = latitude;
+    }
+
+    public BigDecimal getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(BigDecimal longitude) {
+        this.longitude = longitude;
     }
 
     public Integer getStatus() {
@@ -90,34 +94,26 @@ public class OrderEntity {
         this.user = user;
     }
 
-    public AddressEntity getAddress() {
-        return address;
+    public String getName() {
+        return name;
     }
 
-    public void setAddress(AddressEntity address) {
-        this.address = address;
-    }
-
-    public List<OrderItemEntity> getItems() {
-        return items;
-    }
-
-    public void setItems(List<OrderItemEntity> items) {
-        this.items = items;
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override
     public String toString() {
-        return "OrderEntity{" +
+        return "AddressEntity{" +
                 "id=" + id +
-                ", total=" + total +
-                ", date=" + date +
+                ", address='" + address + '\'' +
+                ", name='" + name + '\'' +
+                ", latitude=" + latitude +
+                ", longitude=" + longitude +
                 ", status=" + status +
                 ", createdAt=" + createdAt +
                 ", updatedAt=" + updatedAt +
                 ", user=" + user +
-                ", address=" + address +
-                ", items=" + items +
                 '}';
     }
 }

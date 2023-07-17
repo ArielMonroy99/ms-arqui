@@ -63,4 +63,14 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         ApiError err = new ApiError(LocalDateTime.now(),"Veterinary Not Found", details);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
     }
+
+    @ExceptionHandler(RuntimeException.class)
+    public ResponseEntity<Object> handleResourceNotFoundException(
+            RuntimeException ex
+    ){
+        List<String> details = new ArrayList<String>();
+        details.add(ex.getMessage());
+        ApiError err = new ApiError(LocalDateTime.now(),"Resource not found", details);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
+    }
 }

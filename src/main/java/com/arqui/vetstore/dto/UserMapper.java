@@ -1,8 +1,5 @@
-package com.arqui.vetstore.dto.mapper;
+package com.arqui.vetstore.dto;
 
-import com.arqui.vetstore.dto.UserDto;
-import com.arqui.vetstore.dto.UserPrincipal;
-import com.arqui.vetstore.dto.entity.UserEntity;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import java.util.List;

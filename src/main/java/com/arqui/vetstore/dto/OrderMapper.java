@@ -1,7 +1,4 @@
-package com.arqui.vetstore.dto.mapper;
-
-import com.arqui.vetstore.dto.OrderDto;
-import com.arqui.vetstore.dto.entity.OrderEntity;
+package com.arqui.vetstore.dto;
 
 import java.util.stream.Collectors;
 

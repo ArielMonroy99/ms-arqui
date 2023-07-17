@@ -1,7 +1,6 @@
 package com.arqui.vetstore.dao;
 
-import com.arqui.vetstore.dto.OrderDto;
-import com.arqui.vetstore.dto.entity.OrderEntity;
+import com.arqui.vetstore.dto.OrderEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -1,12 +1,10 @@
-package com.arqui.vetstore.dto.entity;
+package com.arqui.vetstore.dto;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "veterinary")

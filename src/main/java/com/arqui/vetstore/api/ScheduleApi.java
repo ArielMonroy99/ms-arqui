@@ -1,8 +1,7 @@
 package com.arqui.vetstore.api;
 
 import com.arqui.vetstore.bl.ScheduleBl;
-import com.arqui.vetstore.dao.ScheduleRepostory;
-import com.arqui.vetstore.dto.entity.ScheduleEntity;
+import com.arqui.vetstore.dto.ScheduleEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

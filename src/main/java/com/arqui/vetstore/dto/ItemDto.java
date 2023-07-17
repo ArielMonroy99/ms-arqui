@@ -1,9 +1,6 @@
 package com.arqui.vetstore.dto;
 
-import com.arqui.vetstore.dto.entity.CategoryEntity;
-
 import java.math.BigDecimal;
-import java.util.List;
 
 public class ItemDto {
     private Integer id;

@@ -3,9 +3,8 @@ package com.arqui.vetstore.bl;
 import com.arqui.vetstore.dao.ScheduleRepostory;
 import com.arqui.vetstore.dao.VeterinaryRepository;
 import com.arqui.vetstore.dto.VeterinaryDto;
-import com.arqui.vetstore.dto.entity.ScheduleEntity;
-import com.arqui.vetstore.dto.entity.VeterinaryEntity;
-import com.arqui.vetstore.dto.mapper.VeterinaryMapper;
+import com.arqui.vetstore.dto.VeterinaryEntity;
+import com.arqui.vetstore.dto.VeterinaryMapper;
 import com.arqui.vetstore.configure.error.VeterinaryNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,11 +31,15 @@ public class VeterinaryBl {
 
     public VeterinaryDto saveVeterinary(VeterinaryDto newVeterinary){
         logger.info("Saving new veterinary {}", newVeterinary);
-
+        logger.info("Saaving shedules {}", newVeterinary.getSchedules());
         VeterinaryEntity veterinaryEntity = VeterinaryMapper.veterinaryToEntity(newVeterinary);
         veterinaryEntity.setStatus(1);
         veterinaryEntity.setCreatedAt(new Timestamp(System.currentTimeMillis()));
-        veterinaryEntity.setSchedule(newVeterinary.getSchedules());
+        veterinaryEntity.setSchedule(newVeterinary.getSchedules().stream().map(
+                schedule -> {
+                    schedule.setVeterinary(veterinaryEntity);
+                    return schedule;
+                }).collect(Collectors.toList()));
         VeterinaryEntity vet = veterinaryRepository.save(veterinaryEntity);
         newVeterinary.setId(vet.getId());
         return newVeterinary;

@@ -1,10 +1,8 @@
-package com.arqui.vetstore.dto.entity;
+package com.arqui.vetstore.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
-import javax.persistence.criteria.CriteriaBuilder;
 import javax.validation.constraints.NotNull;
 import java.sql.Time;
 
@@ -72,7 +70,6 @@ public class ScheduleEntity  {
                 ", day=" + day +
                 ", hour=" + hour +
                 ", avaliable=" + avaliable +
-                ", veterinary_id=" + veterinary.getId() +
                 '}';
     }
 }

@@ -1,6 +1,4 @@
-package com.arqui.vetstore.dto.entity;
-
-import com.arqui.vetstore.dto.RoleName;
+package com.arqui.vetstore.dto;
 
 import javax.persistence.*;
 

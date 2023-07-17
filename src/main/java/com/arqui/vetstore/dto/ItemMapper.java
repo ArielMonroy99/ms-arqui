@@ -1,7 +1,4 @@
-package com.arqui.vetstore.dto.mapper;
-
-import com.arqui.vetstore.dto.ItemDto;
-import com.arqui.vetstore.dto.entity.ItemEntity;
+package com.arqui.vetstore.dto;
 
 public class ItemMapper {
     public static ItemDto itemEntityToDto(ItemEntity itemEntity) {
@@ -21,6 +18,7 @@ public class ItemMapper {
         itemEntity.setName(itemDto.getName());
         itemEntity.setPrice(itemDto.getPrice());
         itemEntity.setStock(itemDto.getStock());
+        itemEntity.setDescription(itemDto.getDescription());
         itemEntity.setCategory(itemDto.getCategory());
         return itemEntity;
     }

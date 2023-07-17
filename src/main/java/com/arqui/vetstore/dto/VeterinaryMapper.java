@@ -1,8 +1,4 @@
-package com.arqui.vetstore.dto.mapper;
-
-import com.arqui.vetstore.dto.VeterinaryDto;
-import com.arqui.vetstore.dto.entity.ScheduleEntity;
-import com.arqui.vetstore.dto.entity.VeterinaryEntity;
+package com.arqui.vetstore.dto;
 
 import java.util.List;
 

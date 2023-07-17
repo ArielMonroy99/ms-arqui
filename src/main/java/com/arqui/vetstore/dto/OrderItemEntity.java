@@ -1,7 +1,6 @@
-package com.arqui.vetstore.dto.entity;
+package com.arqui.vetstore.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.springframework.jmx.export.annotation.ManagedOperationParameter;
 
 import javax.persistence.*;
 import java.util.Objects;

@@ -1,5 +1,6 @@
 package com.arqui.vetstore.dto;
 
+
 public class AppointmentDto {
     private Integer id;
     private String date;

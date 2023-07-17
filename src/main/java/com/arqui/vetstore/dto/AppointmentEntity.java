@@ -1,6 +1,5 @@
-package com.arqui.vetstore.dto.entity;
+package com.arqui.vetstore.dto;
 
-import org.springframework.web.bind.annotation.GetMapping;
 
 import javax.persistence.*;
 import java.sql.Date;

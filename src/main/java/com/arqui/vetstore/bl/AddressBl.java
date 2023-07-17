@@ -2,8 +2,8 @@ package com.arqui.vetstore.bl;
 
 import com.arqui.vetstore.dao.AddressRepository;
 import com.arqui.vetstore.dto.AddressDto;
-import com.arqui.vetstore.dto.entity.AddressEntity;
-import com.arqui.vetstore.dto.entity.UserEntity;
+import com.arqui.vetstore.dto.AddressEntity;
+import com.arqui.vetstore.dto.UserEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

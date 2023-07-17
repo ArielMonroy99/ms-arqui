@@ -2,14 +2,14 @@ package com.arqui.vetstore.bl;
 
 import com.arqui.vetstore.dao.RoleRepository;
 import com.arqui.vetstore.dao.UserRepository;
-import com.arqui.vetstore.dto.entity.RoleEntity;
-import com.arqui.vetstore.dto.entity.UserEntity;
+
 import com.arqui.vetstore.dto.UserDto;
-import com.arqui.vetstore.dto.mapper.UserMapper;
-import org.apache.juli.logging.Log;
+import com.arqui.vetstore.dto.UserEntity;
+import com.arqui.vetstore.dto.UserMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -22,6 +22,10 @@ import java.util.stream.Collectors;
 @Service
 @CrossOrigin(origins = "*")
 public class UserBl {
+    @Value("${jwt.secret}")
+    private String secret;
+    @Value("${jwt.expiration}")
+    private int experitaion;
     private UserRepository userRepository;
     private RoleRepository roleRepository;
     private PasswordEncoder passwordEncoder;
@@ -78,6 +82,8 @@ public class UserBl {
     }
 
     public UserDto getUserByUsername(String username){
+        logger.info("SECRET {}",secret);
+        logger.info("EXPIRATION {}",experitaion);
         UserEntity userEntity = userRepository.findByUsername(username).orElseThrow(()->{
             throw new RuntimeException("user not found");
         });

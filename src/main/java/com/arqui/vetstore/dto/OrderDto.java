@@ -1,6 +1,5 @@
 package com.arqui.vetstore.dto;
 
-import com.arqui.vetstore.dto.entity.OrderItemEntity;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;

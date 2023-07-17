@@ -1,8 +1,4 @@
-package com.arqui.vetstore.dto.mapper;
-
-import com.arqui.vetstore.dto.OrderItemDto;
-import com.arqui.vetstore.dto.entity.OrderEntity;
-import com.arqui.vetstore.dto.entity.OrderItemEntity;
+package com.arqui.vetstore.dto;
 
 public class OrderItemMapper {
     public static OrderItemDto orderItemEntityToDto(OrderItemEntity orderItemEntity) {

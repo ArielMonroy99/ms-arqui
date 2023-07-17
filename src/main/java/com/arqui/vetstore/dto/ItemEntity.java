@@ -1,4 +1,4 @@
-package com.arqui.vetstore.dto.entity;
+package com.arqui.vetstore.dto;
 
 import javax.persistence.*;
 import java.math.BigDecimal;

@@ -1,7 +1,7 @@
 package com.arqui.vetstore.api;
 
 import com.arqui.vetstore.bl.CategoryBl;
-import com.arqui.vetstore.dto.entity.CategoryEntity;
+import com.arqui.vetstore.dto.CategoryEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;

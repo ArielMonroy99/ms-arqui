@@ -1,7 +1,7 @@
 package com.arqui.vetstore.bl;
 
 import com.arqui.vetstore.dao.CategoryRepository;
-import com.arqui.vetstore.dto.entity.CategoryEntity;
+import com.arqui.vetstore.dto.CategoryEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

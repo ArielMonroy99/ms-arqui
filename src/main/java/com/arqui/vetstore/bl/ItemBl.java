@@ -3,21 +3,26 @@ package com.arqui.vetstore.bl;
 import com.arqui.vetstore.dao.CategoryRepository;
 import com.arqui.vetstore.dao.ItemRepository;
 import com.arqui.vetstore.dto.ItemDto;
-import com.arqui.vetstore.dto.entity.CategoryEntity;
-import com.arqui.vetstore.dto.entity.ItemEntity;
-import com.arqui.vetstore.dto.mapper.ItemMapper;
+import com.arqui.vetstore.dto.CategoryEntity;
+import com.arqui.vetstore.dto.ItemEntity;
+import com.arqui.vetstore.dto.ItemMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.sql.Timestamp;
+
+
 @Service
 public class ItemBl {
     private ItemRepository itemRepository;
     private CategoryRepository categoryRepository;
+
+    public static final Logger logger = LoggerFactory.getLogger(ItemBl.class);
     @Autowired
     public ItemBl(ItemRepository itemRepository, CategoryRepository categoryRepository) {
         this.itemRepository = itemRepository;
@@ -25,6 +30,7 @@ public class ItemBl {
     }
 
     public ItemDto saveItem(ItemDto item){
+        logger.info("Saving item");
         ItemEntity itemEntity = ItemMapper.itemDtoToEntity(item);
         itemEntity.setCreatedAt(new Timestamp(System.currentTimeMillis()));
         itemEntity.setStatus(1);
